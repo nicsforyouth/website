@@ -9,17 +9,46 @@ import { CategoryFilter } from "./CategoryFilter";
 import { SearchBar } from "./SearchBar";
 import { SortDropdown, SortOption } from "./SortDropdown";
 import { BookOpen } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { useArticleFilters } from "@/hooks/useArticleFilters";
 
 type Props = {
   articles: Article[];
+  // initialSearch: string;
+  // initialCategory: string;
+  // initialSort: string;
 };
 
-export function ArticlesExplorer({ articles }: Props) {
+export function ArticlesExplorer({
+  articles,
+  // initialSearch,
+  // initialCategory,
+  // initialSort,
+}: Props) {
   const { search, category, sort, setCategory, setSearch, setSort } =
     useArticleFilters();
 
+  // const router = useRouter();
+  // const pathname = usePathname();
+  //
+  // const [search, setSearch] = useState(initialSearch);
+  // const [category, setCategory] = useState(initialCategory);
+  // const [sort, setSort] = useState(initialSort);
+
   const [searchInput, setSearchInput] = useState(search);
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams();
+  //
+  //   if (search) params.set("q", search);
+  //   if (category !== "All") params.set("category", category);
+  //   if (sort !== "newest") params.set("sort", sort);
+  //
+  //   const query = params.toString();
+  //
+  //   router.replace(query ? `${pathname}?${query}` : pathname, {});
+  // }, [search, category, sort, pathname, router]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

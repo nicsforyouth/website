@@ -4,13 +4,29 @@ import { FeaturedArticle } from "@/components/article/FeaturedArticle";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Articles",
   description: "Articles published by NICS.",
 };
 
-export default async function ArticlesPage() {
+function ExplorerSkeleton() {
+  return (
+    <div className="space-y-8">
+      <Skeleton className="h-16 rounded-3xl" />
+
+      <div className="grid gap-8 md:grid-cols-2">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton key={i} className="h-72 rounded-3xl" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default async function ArticlesPage({}: {}) {
   const articles = await getAllArticles();
   const featured = articles.find((a) => a.isFeatured) ?? articles[0];
   // const remaining = articles.filter((a) => a.slug !== featured.slug);
@@ -19,12 +35,10 @@ export default async function ArticlesPage() {
     <>
       <main>
         <div className="min-h-screen bg-bg-alt text-dark font-body relative overflow-hidden pt-12 pb-20">
-          {/* Background gradients */}
           <div className="absolute right-0 top-0 w-125 h-125 rounded-full bg-primary-light/40 blur-[150px] pointer-events-none" />
           <div className="absolute -left-25 bottom-0 w-100 h-100 rounded-full bg-primary-light/30 blur-[120px] pointer-events-none" />
 
           <div className="px-6 relative z-10 py-0 mx-auto max-w-6xl">
-            {/* Back to Home & Write Button Row */}
             <div className="flex flex-wrap items-center justify-between gap-4">
               <Link
                 href="/"
@@ -42,7 +56,6 @@ export default async function ArticlesPage() {
               <div>
                 <div>
                   <div className="space-y-8">
-                    {/* Title Header */}
                     <div className="space-y-4">
                       <div className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full uppercase tracking-wider">
                         NICS Knowledge Center
@@ -58,8 +71,9 @@ export default async function ArticlesPage() {
 
                     {featured && <FeaturedArticle article={featured} />}
 
-                    {/* <ArticlesExplorer articles={remaining} /> */}
-                    <ArticlesExplorer articles={articles} />
+                    <Suspense fallback={<ExplorerSkeleton />}>
+                      <ArticlesExplorer articles={articles} />
+                    </Suspense>
                   </div>
                 </div>
               </div>
