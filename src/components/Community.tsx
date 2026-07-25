@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { staggerContainer } from "@/lib/animations";
 import { Send, FileText, Sparkles } from "lucide-react";
 import { config } from "@/lib/config";
+import Link from "next/link";
 
 export default function Community() {
   const shouldReduceMotion = useReducedMotion();
@@ -10,13 +11,13 @@ export default function Community() {
   return (
     <section
       id="community"
-      className="bg-dark text-white py-20 md:py-28 overflow-hidden relative"
+      className="bg-white py-20 md:py-28 overflow-hidden relative"
     >
       {/* Background vector glow decoration */}
-      <div className="absolute right-0 bottom-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
-      <div className="absolute left-0 top-0 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[100px] pointer-events-none" />
+      <div className="absolute right-0 bottom-0 w-100 h-100 rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+      <div className="absolute left-0 top-0 w-75 h-75 rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="max-w-300 mx-auto px-6 relative z-10">
         <motion.div
           variants={shouldReduceMotion ? {} : staggerContainer}
           initial="hidden"
@@ -25,14 +26,14 @@ export default function Community() {
           className="space-y-16"
         >
           {/* Header Area */}
-          <motion.div className="max-w-[700px] space-y-4">
-            <p className="label-eyebrow text-accent font-semibold tracking-[0.15em] mb-3">
+          <motion.div className="max-w-175 space-y-4">
+            <p className="label-eyebrow text-primary font-semibold tracking-[0.15em] mb-3">
               Become a Member
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-normal text-white tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
               Be part of something building.
             </h2>
-            <p className="text-body text-gray-400 max-w-[600px] font-normal">
+            <p className="text-body text-gray-400 max-w-150 font-normal">
               NICS is free to join and open to every high schooler in Nepal.
               Come learn, build, share, and connect with other passionate peers.
             </p>
@@ -40,36 +41,8 @@ export default function Community() {
 
           {/* Cards Container */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Membership card */}
-            <motion.div className="bg-white/3 border border-white/10 rounded-2xl p-8 flex flex-col justify-between items-start gap-8 hover:border-accent/40 transition-all duration-300">
-              <div className="space-y-5">
-                <div className="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center">
-                  <FileText size={24} />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-display text-2xl font-normal text-white">
-                    Apply for Membership
-                  </h3>
-                  <p className="text-body text-sm text-gray-400">
-                    Get priority invitations to all physical workshops,
-                    webinars, local development teams, and future hackathons. It
-                    is free. Always.
-                  </p>
-                </div>
-              </div>
-              <a
-                href={config.applicationForm}
-                id="apply-membership-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-transparent hover:bg-white/10 text-white px-6 py-3 rounded-full flex items-center gap-2 cursor-pointer transition-all border border-white/20"
-              >
-                Apply Now <Sparkles size={14} className="text-gold" />
-              </a>
-            </motion.div>
-
             {/* Discord card */}
-            <motion.div className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 flex flex-col justify-between items-start gap-8 hover:border-accent/40 transition-all duration-300">
+            <motion.div className="bg-white/5 backdrop-blur-md border border-black/5 shadow-xl rounded-2xl p-8 flex flex-col justify-between items-start gap-8 hover:border-primary/40 transition-all duration-300">
               <div className="space-y-5">
                 {/* Discord simplified logo */}
                 <div className="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center">
@@ -84,25 +57,53 @@ export default function Community() {
                   </svg>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-display text-2xl font-normal text-white">
+                  <h3 className="font-display text-2xl font-normal">
                     Join our Discord
                   </h3>
-                  <p className="text-body text-sm text-gray-400">
+                  <p className="text-body text-sm text-muted-foreground">
                     Interact directly with members. Discuss hardware setups,
                     share projects, ask coding questions, or coordinate with
                     regional groups.
                   </p>
                 </div>
               </div>
-              <a
+              <Link
                 href={config.social.discord}
                 id="join-discord-btn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-text bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full flex items-center gap-2 cursor-pointer transition-all border border-accent/20"
+                className="btn-text bg-primary hover:bg-primary/90 px-6 py-3 text-white rounded-full flex items-center gap-2 cursor-pointer transition-all border border-primary/20"
               >
                 Join Server <Send size={14} />
-              </a>
+              </Link>
+            </motion.div>
+
+            {/* Membership card */}
+            <motion.div className="bg-white/5 backdrop-blur-md border border-black/5 shadow-xl rounded-2xl p-8 flex flex-col justify-between items-start gap-8 hover:border-primary/40 transition-all duration-300">
+              <div className="space-y-5">
+                <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
+                  <FileText size={24} />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-display text-2xl font-normal">
+                    Apply for Membership
+                  </h3>
+                  <p className="text-body text-sm text-muted-foreground">
+                    Get priority invitations to all physical workshops,
+                    webinars, local development teams, and future hackathons. It
+                    is free. Always.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href={config.applicationForm}
+                id="apply-membership-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-transparent hover:bg-black/10 border border-black/20 px-6 py-3 rounded-full flex items-center gap-2 cursor-pointer transition-all"
+              >
+                Apply Now <Sparkles size={14} className="text-gold" />
+              </Link>
             </motion.div>
           </div>
         </motion.div>

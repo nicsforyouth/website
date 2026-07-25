@@ -2,25 +2,30 @@ import Image from "next/image";
 import { config } from "@/lib/config";
 import Logo from "@/assets/logo-transparent.png";
 import { FaFacebook, FaInstagram, FaDiscord } from "react-icons/fa";
-import Link from "next/link";
-import { navItems } from "./Navbar";
 
-export default function Footer() {
+interface FooterProps {
+  onNavClick: (sectionId: string) => void;
+}
+
+export default function HeroFooter({ onNavClick }: FooterProps) {
   const currentYear = new Date().getFullYear();
+
+  const handleLinkClick = (id: string) => {
+    onNavClick(id);
+  };
 
   return (
     <footer
       id="footer-section"
-      // className="bg-[#0D1117] text-white pt-16 pb-12 border-t-2 border-primary"
-      className="bg-dark text-white pt-16 pb-12 border-t-2 border-primary"
+      className="bg-[#0D1117] text-white pt-16 pb-12 border-t-2 border-primary"
     >
       <div className="max-w-300 mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 pb-12 border-b border-white/10">
+          {/* Column 1: Logo and Tagline */}
           <div className="md:col-span-5 space-y-4">
-            <Link
-              prefetch
-              href="/"
+            <button
               id="footer-logo-btn"
+              onClick={() => handleLinkClick("home")}
               className="flex items-center gap-2 cursor-pointer group text-left"
               aria-label="NICS Home"
             >
@@ -29,7 +34,7 @@ export default function Footer() {
                 Nepal Informatics & Computing Society
               </span>
               <span className="w-2.5 h-2.5 rounded-full bg-primary" />
-            </Link>
+            </button>
             <p className="text-body text-sm text-gray-400 font-medium">
               "For students, by students."
             </p>
@@ -39,24 +44,32 @@ export default function Footer() {
             </p>
           </div>
 
+          {/* Column 2: Nav Links */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-gray-400">
               Navigation
             </h4>
             <nav className="flex flex-col gap-3">
-              {navItems.map((link) => (
-                <Link
+              {[
+                { name: "Home", id: "home" },
+                { name: "About NICS", id: "about" },
+                { name: "What We Do", id: "what-we-do" },
+                { name: "Upcoming Events", id: "events" },
+                { name: "Join Us", id: "community" },
+              ].map((link) => (
+                <button
                   key={link.id}
-                  href={link.href}
                   id={`footer-link-${link.id}`}
+                  onClick={() => handleLinkClick(link.id)}
                   className="text-body text-xs text-gray-400 hover:text-primary transition-colors text-left cursor-pointer font-medium w-fit"
                 >
                   {link.name}
-                </Link>
+                </button>
               ))}
             </nav>
           </div>
 
+          {/* Column 3: Social Links */}
           <div className="md:col-span-3 space-y-4">
             <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-gray-400">
               Connect With Us
@@ -72,6 +85,7 @@ export default function Footer() {
                 <FaFacebook />
               </a>
 
+              {/* Instagram icon */}
               <a
                 href={config.social.instagram}
                 target="_blank"

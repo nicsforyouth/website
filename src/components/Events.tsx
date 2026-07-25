@@ -20,12 +20,12 @@ function EventCard({
   key?: React.Key;
 }) {
   const isPlanned = event.badge === "Planned";
-  const accentColorClass = isPlanned ? "border-accent" : "border-gold";
-  const badgeBgClass = isPlanned ? "bg-accent" : "bg-gold";
+  const primaryColorClass = isPlanned ? "border-primary" : "border-gold";
+  const badgeBgClass = isPlanned ? "bg-primary" : "bg-gold";
 
   return (
     <motion.div
-      className={`bg-white rounded-2xl p-8 shadow-sm hover:shadow-md border-t-4 ${accentColorClass} transition-all duration-300 flex flex-col justify-between gap-6 h-full relative overflow-hidden`}
+      className={`bg-white rounded-2xl p-8 shadow-sm hover:shadow-md border-t-4 ${primaryColorClass} transition-all duration-300 flex flex-col justify-between gap-6 h-full relative overflow-hidden`}
     >
       {/* Decorative background shape */}
       <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 rounded-full bg-slate-50 opacity-60 pointer-events-none group-hover:scale-110 transition-transform" />
@@ -38,7 +38,7 @@ function EventCard({
           >
             {event.badge}
           </span>
-          <div className="text-muted/60">{event.icon}</div>
+          <div className="text-muted-foreground/60">{event.icon}</div>
         </div>
 
         {/* Content */}
@@ -46,15 +46,15 @@ function EventCard({
           <h3 className="font-display text-2xl font-normal text-dark leading-snug">
             {event.title}
           </h3>
-          <p className="text-body text-sm text-muted leading-relaxed">
+          <p className="text-body text-sm text-muted-foreground leading-relaxed">
             {event.description}
           </p>
         </div>
       </div>
 
       {/* Date detail */}
-      <div className="pt-4 border-t border-border flex items-center gap-2 text-xs font-sans text-muted font-medium">
-        <Calendar size={14} className="text-accent/70" />
+      <div className="pt-4 border-t border-border flex items-center gap-2 text-xs font-sans text-muted-foreground font-medium">
+        <Calendar size={14} className="text-primary/70" />
         <span>{event.date}</span>
       </div>
     </motion.div>
@@ -70,7 +70,7 @@ export default function Events() {
       description:
         "Hands-on intro to programming fundamentals. Open to absolute beginners. Write your first scripts and learn algorithmic logic.",
       badge: "Planned",
-      icon: <Code2 size={22} className="text-accent" />,
+      icon: <Code2 size={22} className="text-primary" />,
       date: "Mid-July 2026",
     },
     {
@@ -78,7 +78,7 @@ export default function Events() {
       description:
         "Explore the basics of machine learning, modern neural networks, and how AI is shaping industrial structures and standard life.",
       badge: "Planned",
-      icon: <Cpu size={22} className="text-accent" />,
+      icon: <Cpu size={22} className="text-primary" />,
       date: "August 2026",
     },
     {
@@ -104,11 +104,11 @@ export default function Events() {
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <div className="mb-16">
-          <p className="label-eyebrow text-accent font-semibold tracking-[0.15em] mb-3">
+          <p className="label-eyebrow text-primary font-semibold tracking-[0.15em] mb-3">
             Upcoming Programs
           </p>
           <h2 className="section-heading text-dark mb-4">What's Coming</h2>
-          <div className="w-12 h-1 bg-accent rounded" />
+          <div className="w-12 h-1 bg-primary rounded" />
         </div>
 
         {/* Horizontal Scroll/Grid of Event Cards */}

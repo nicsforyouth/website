@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
@@ -18,13 +17,13 @@ export default function About() {
       id="about"
       className="bg-bg-alt py-20 md:py-28 overflow-hidden border-y border-border"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-300 mx-auto px-6">
         {/* Eyebrow Label */}
         <div className="mb-12">
-          <p className="label-eyebrow text-accent font-semibold tracking-[0.15em] mb-3">
+          <p className="label-eyebrow text-primary font-semibold tracking-[0.15em] mb-3">
             About NICS
           </p>
-          <div className="w-12 h-1 bg-accent rounded" />
+          <div className="w-12 h-1 bg-primary rounded" />
         </div>
 
         <motion.div
@@ -38,7 +37,7 @@ export default function About() {
           <motion.div
             /* @ts-ignore */
             variants={currentFadeInUp}
-            className="lg:col-span-5 border-l-4 border-accent pl-6 py-2"
+            className="lg:col-span-5 border-l-4 border-primary pl-6 py-2"
           >
             <blockquote className="pull-quote text-dark font-display">
               "We're students for students. There are no stiff lecture halls
@@ -58,14 +57,14 @@ export default function About() {
               Nepali education system: access to real-world, hands-on technology
               education.
             </p>
-            <p className="text-body text-muted leading-relaxed">
+            <p className="text-body text-muted-foreground leading-relaxed">
               We operate as a peer-to-peer student club, built on the belief
               that high schoolers learn best from other passionate peers. By
               designing our own workshops, bootcamps, and digital sessions, we
               present tech concepts (like web development, neural networks, or
               security tools) in a friendly, approachable way.
             </p>
-            <p className="text-body text-muted leading-relaxed">
+            <p className="text-body text-muted-foreground leading-relaxed">
               Whether you are an absolute beginner looking to write your very
               first line of code, or a self-taught tinkerer looking for a team
               to collaborate on projects, NICS is your home. Everything we do is

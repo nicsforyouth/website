@@ -1,6 +1,5 @@
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { motion } from "motion/react";
 
 interface FeatureCardProps {
   title: string;
@@ -10,20 +9,25 @@ interface FeatureCardProps {
   key?: React.Key;
 }
 
-function FeatureCard({ title, description, icon, index }: FeatureCardProps) {
+function FeatureCard({
+  title,
+  description,
+  icon,
+  index: _index,
+}: FeatureCardProps) {
   return (
-    <motion.div className="bg-white border border-border rounded-2xl p-8 transition-all duration-300 shadow-sm hover:shadow-md hover:border-accent flex flex-col items-start gap-5 group">
+    <motion.div className="bg-white border border-border rounded-2xl p-8 transition-all duration-300 shadow-sm hover:shadow-md hover:border-primary flex flex-col items-start gap-5 group">
       {/* Icon Container */}
-      <div className="w-12 h-12 rounded-xl bg-accent-light flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300">
+      <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
 
       {/* Text Info */}
       <div className="space-y-3">
-        <h3 className="font-display text-2xl font-normal text-dark group-hover:text-accent transition-colors">
+        <h3 className="font-display text-2xl font-normal text-dark group-hover:text-primary transition-colors">
           {title}
         </h3>
-        <p className="text-body text-sm text-muted leading-relaxed">
+        <p className="text-body text-sm text-muted-foreground leading-relaxed">
           {description}
         </p>
       </div>
@@ -32,8 +36,6 @@ function FeatureCard({ title, description, icon, index }: FeatureCardProps) {
 }
 
 export default function WhatWeDo() {
-  const shouldReduceMotion = useReducedMotion();
-
   const features = [
     {
       title: "Coding & Development",
@@ -151,16 +153,16 @@ export default function WhatWeDo() {
       id="what-we-do"
       className="bg-white py-20 md:py-28 overflow-hidden"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-300 mx-auto px-6">
         {/* Section Header */}
         <div className="mb-16 md:mb-20">
-          <p className="label-eyebrow text-accent font-semibold tracking-[0.15em] mb-3">
+          <p className="label-eyebrow text-primary font-semibold tracking-[0.15em] mb-3">
             What We Do
           </p>
           <h2 className="section-heading text-dark mb-4">
             Everything tech, under one roof.
           </h2>
-          <div className="w-12 h-1 bg-accent rounded" />
+          <div className="w-12 h-1 bg-primary rounded" />
         </div>
 
         {/* Feature Cards Grid */}

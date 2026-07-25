@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
+import HeroNavbar from "@/components/HeroNavbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import WhatWeDo from "@/components/WhatWeDo";
@@ -14,8 +14,8 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
 
   // Smooth scroll logic
-  const handleNavClick = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
+  const smoothScroll = (itemId: string) => {
+    const section = document.getElementById(itemId);
     if (section) {
       // Offset for sticky navbar (appx 80px)
       const offset = 80;
@@ -28,7 +28,7 @@ export default function Home() {
         top: offsetPosition,
         behavior: "smooth",
       });
-      setActiveSection(sectionId);
+      setActiveSection(itemId);
     }
   };
 
@@ -61,36 +61,27 @@ export default function Home() {
       id="app-container"
       className="min-h-screen bg-white text-dark antialiased"
     >
-      {/* Header / Navbar */}
-      <Navbar onNavClick={handleNavClick} activeSection={activeSection} />
+      <HeroNavbar smoothScroll={smoothScroll} activeSection={activeSection} />
 
-      {/* Main Content Sections */}
       <main id="main-content">
-        {/* 1. Hero */}
         <Hero
-          onJoinClick={() => handleNavClick("community")}
-          onExploreClick={() => handleNavClick("what-we-do")}
-          onScrollClick={() => handleNavClick("about")}
+          onJoinClick={() => smoothScroll("community")}
+          onExploreClick={() => smoothScroll("what-we-do")}
+          onScrollClick={() => smoothScroll("about")}
         />
 
-        {/* 2. About */}
         <About />
 
-        {/* 3. What We Do */}
         <WhatWeDo />
 
-        {/* 4. Marquee */}
         <Marquee />
 
-        {/* 5. Events */}
         <Events />
 
-        {/* 6. Community / Apply */}
         <Community />
       </main>
 
-      {/* Footer */}
-      <Footer onNavClick={handleNavClick} />
+      <Footer />
     </div>
   );
 }

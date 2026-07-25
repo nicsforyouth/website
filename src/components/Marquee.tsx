@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Marquee() {
   // const marqueeText =
   //   "OPEN TO ALL · LEARN TOGETHER · BUILD SKILLS · NEPAL · COMPUTING · COMMUNITY · ";
@@ -18,7 +16,7 @@ export default function Marquee() {
   return (
     <section
       id="marquee-section"
-      className="w-full bg-accent py-5 overflow-hidden select-none border-y border-accent/20"
+      className="w-full bg-primary py-5 overflow-hidden select-none border-y border-primary/20"
     >
       <div className="relative w-full flex items-center overflow-x-hidden">
         {/* Scrolling text wrapper */}
