@@ -1,0 +1,66 @@
+---
+title: "Let’s Get Low Level: 00 The Language of Computer"
+description: Discover the language of computers—from bits and bytes to ASCII, Unicode, and binary—and learn how every digital experience begins with nothing more than 0s and 1s.
+date: 2026-07-31
+updated:
+author:
+  name: Sushant K. Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Hardware
+  - Computing
+  - Low Level
+category: Technical
+cover: https://imgur.com/T0W7iQ3.png
+featured: true
+published: true
+---
+“01001110 01001001 01000011 01010011”
+
+To the untrained eye this string of 0’s and 1’s is utter nonsense. But this is precisely what a computer sees when I type out “NICS.” It is well known that a computer works on the **Binary Number System**, but have you ever wondered *why*?
+
+## Why Binary?
+
+The simple answer: transistors. They are the building blocks of a computing system. A transistor simply represents one of two states; ON or OFF. The way it does that is electricity. We’ve all heard that a computer chip is made up of silicon. But that’s not entirely true. Silicon itself is neither a great conductor nor a great insulator of electricity; it is a **semiconductor.** Because of this, tiny amounts of other elements (such as Boron) are added to alter the electrical properties of Silicon. These elements are called **doping agents**. They help create spots with extra or lesser electrons, and in this way we can essentially “control” when the Silicon conducts electricity and when it does not. That’s where the 0 and 1 comes from.
+
+Okay, getting back to the original question: why 0’s and 1’s? Why not just use decimal number system like we human are used to? Well, we’ve established that computers use transistors. And transistors can be compact, like *really* compact. Microchips nowadays use transistors as small as 2 *nanometers*. If a transistor were to be enlarged to the size of a grain of rice, a human would be as big as Mount Everest at that scale. And these transistors, billions of them, are what provide a computer with the immense speed it is famous for. If instead we were to use any other number system, any mechanism like the transistor would be really complicated due to having multiple representative states, not just 0’s and 1’s, which would make it harder to manufacture and actually put together.
+
+And here’s a key insight, decimal number system wouldn’t actually be faster than binary. Yes, it can store data more efficiently (for humans at least), but it will also require more logic and computation because there are 10 different states instead of just 2. Even if we ignore the mechanical constraints of having more states, it doesn’t provide any real benefit over the binary system.
+
+So in basic form, computers use binary. And they do so because transistors appreciate lesser number of states, and the number “2” happens to be the smallest number of states that can actually represent an infinitely many unique entities. 
+
+## Computer Dictionaries
+
+Let’s learn how actual data is formatted in the Binary System.
+
+### ASCII
+
+ASCII is another important concept. It stands for “American Standard Code for Information Interchange” and it is basically how a computer handles characters. Remember the binary code for “NICS” at the start of this article? Those codes are called ASCII codes. They are eight (initially seven) digits long string of 0’s or 1’s that represent a single character. For example the character “A” is represented by the code 01000001 (65 in decimal) and “a” is represented by 01100001 (97 in decimal). ASCII is the standard for all computers for representing data. It has 128 different characters (2^7, as ASCII was originally 7 digits long) for different characters, numbers, symbols and control characters.
+
+<Callout>
+ Did you know? Numbers like 0 and 1 are actually coded differently in the ASCII system. 0 is 00110000 (48 in decimal) and 1 is 00110001 (49 in binary) instead of the more obvious 00000000 (0 in decimal) and 00000001 (1 in decimal).
+</Callout>
+    
+
+### Unicode
+
+As you probably noticed, ASCII is limited. With only 128 characters, it leaves no room for different scripts like Devanagari, emojis, or special characters like Pi. This is where Unicode comes in. It provides a much larger specification for a bigger set of characters than ASCII. But there is a key distinction between them. Unicode is not a way of storing text. Unicode is a giant agreement about what number every character in the world should have. 
+
+Let’s take the character “A” for example. The Unicode representation for “A” is U+0061. 
+
+- The U+ dictates that the given code is a Unicode. Hence, all Unicodes are prefixed with U+
+- The set of 4 digits that follow it, is the hexadecimal identifier which is unique for all characters.
+
+The Unicode of any character dictates what a character is. So whether “A” looks like “A” or “𝒜” or a completely different character, is the font’s job to decide.
+
+Another key insight: Although we represent Unicodes with hexadecimal format, that’s only for human convenience. The computer still interprets it in binary, and it uses different formats to do so. For example, the UTF**-8** format uses 1-4 bytes for representing a Unicode. Similarly, UTF-16 uses 2-4 bytes and UTF-32 uses exactly 4 bytes. Each one has its own use-cases, but UTF-8 is by far the most memory efficient, and hence, the most widely used.
+
+## The Essence
+
+For a computer, anything and everything is binary, from text to images, videos and music, all are just 0’s and 1’s. A pdf file you just opened, or the .ppt file you created last week. Everything is binary.
+
+If there’s one thing I want you to take away from this article, it’s this: Data has no meaning. Take for example, the string “01000010” could represent the letter “A”, or it could represent the number 65, or who knows, it could be a part of a .jpg file. The bits themselves mean nothing at all. It is only the way we interpret the strings of 0’s and 1’s that gives it its distinct-looking value. 
+---
+We've discovered that computers speak in bits, store text using standards like Unicode, and rely on billions of transistors to represent 0s and 1s. But knowing a language is only the beginning. How does a computer use these bits to make decisions, perform calculations, or run an entire operating system?
+
+In the next chapter of **Let's Get Low Level**, we'll see how simple switches are combined to create **logic gates**—the fundamental building blocks of computation.
