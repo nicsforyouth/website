@@ -11,6 +11,7 @@ export const ARTICLE_CATEGORIES = [
   "Opinion",
   "Announcement",
   "Writing",
+  "Club Related",
 ] as const;
 
 type ArticleCategory = (typeof ARTICLE_CATEGORIES)[number];
