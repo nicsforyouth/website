@@ -1,0 +1,70 @@
+---
+title: "How the Web Works: 00 Basics of HTTP"
+description: We all have browsed the internet, but today, let's take a moment to learn how the internet actually delivers content to you, all thanks to HTTP!
+date: 2026-08-14
+updated:
+author:
+  name: Sushant K. Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Web
+  - HTTP
+  - internet 
+category: Web Development
+cover: https://imgur.com/0iuKNYQ.jpg
+featured: true
+published: true
+---
+
+Open your browser. Type any website. Press Enter.
+
+In less than a second, another computer receives your request thousands of kilometers away, understands exactly what you want, and sends back everything needed to build the webpage on your screen.
+
+This process feels almost magical; but it's built on a surprisingly simple protocol called HTTP.
+
+HTTP stands for **HyperText Transfer Protocol.** Despite the intimidating name, HTTP is simply a set of rules that tells the computer how to talk to one another; basically the language of the internet.
+
+## Analogy
+
+Think of a TV Remote. When you press the volume down key, the remote doesn’t magically turn the volume down, it simply sends *instructions* to the Television to lower the volume. That is basically what HTTP is. An HTTP *request* gives instructions to a server sitting at some data center to perform a task.
+
+## Request & Response
+
+Above, I mentioned an “HTTP request,” but what even is an HTTP request?
+
+Well, a request is simply a set of information that the “client” (your machine) gives to the server, asking for information or instructing to perform a specific task. Think of it as your order in an restaurant.
+
+### Structure of Request
+
+A request contains various information, some required while some optional.
+
+- Method: Method is the *type* of the request. There are required parameters and most common ones are GET, PUT, POST, DELETE, PATCH, etc. The most used are GET and POST requests, used for asking for information and sending new information respectively.
+
+For example, there could be a server that has `GET /api/cat` where it means “please send me information about cats”
+- URL: This is the address of the data/instruction. Since a server may allow various types of requests, the URL is the distinguishing factor between two or more requests on the same server.
+- Headers: Headers provide additional information about the request like authentication token/status, user’s locale, requested file/format, etc.
+- Body: The body contains the information that is to be sent to the server. They are mostly used in “POST” requests, to specify the contents of an new data that is being created.
+
+On the other hand, response is what **the server sends to the client.** It’s structure is as follows:
+
+### Structure of Response
+
+- Status Code: This is the heart of an response. It informs the client what happened to their request. Some common status codes are `200`: OK, Everything’s good; `404`: Page not found; `401`: Unauthorized and `500`: Internal server error.
+- Response headers: They are the metadata of the response, consisting of elements like `Content-Type`  and Cookies.
+- Body: It is the actual data being returned. The type of the data is specified in the header as `Content-Type` , for example, JSON, HTML or media files. Note that the body is totally optional.
+
+## HTTP vs HTTPS
+
+On web, you’ll almost always see “http*s*” instead of simple “http.” Have you wondered why that is?
+
+The ‘s’ stands for “secure”. It provides an encrypted connection between the client and the server. So basically, HTTPS = HTTP + TLS Certificate
+
+But what even is a TLS Certificate???
+
+It is simply an encryption on your *connection*. Don’t confuse this with encryption on your activities. Entities like your ISP and router can still see your internet activities, all TLS does is (a) provide a certification to authenticate your connection i.e. verify to the server that is it *actually* you who’s talking to it and (b) encrypt your HTTPS data so nobody else can view it.
+
+This is why browsers nowadays warn you if you visit a HTTP website; HTTPS is literally the more secure option with no real drawbacks.
+
+## 👀
+
+In the next article, we will learn about the structure of an URL. It might seem basic, like it’s just host, domain, port all that fun stuff, right? Well soon enough you’ll find out it’s more than just that!
