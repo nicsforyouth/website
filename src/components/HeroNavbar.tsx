@@ -181,7 +181,9 @@ export default function HeroNavbar({
                         ? "text-primary font-semibold"
                         : "text-dark"
                     }`}
-                  />
+                  >
+                    {item.name}
+                  </Link>
                 ),
               )}
               <button
@@ -196,42 +198,5 @@ export default function HeroNavbar({
         )}
       </AnimatePresence>
     </header>
-  );
-}
-
-function ActiveUnderline({ activeId }: { activeId: string }) {
-  const [underline, setUnderline] = useState<{
-    left: number;
-    width: number;
-  } | null>(null);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => {
-      const btn = document.getElementById(`nav-link-${activeId}`);
-      const nav = document.getElementById("desktop-nav");
-      if (!btn || !nav) {
-        setUnderline(null);
-        return;
-      }
-      const navRect = nav.getBoundingClientRect();
-      const btnRect = btn.getBoundingClientRect();
-      setUnderline({
-        left: btnRect.left - navRect.left,
-        width: btnRect.width,
-      });
-    });
-    return () => cancelAnimationFrame(id);
-  }, [activeId]);
-
-  if (!underline) return null;
-
-  return (
-    <motion.span
-      aria-hidden
-      className="absolute h-0.5 bg-primary pointer-events-none"
-      initial={false}
-      animate={{ left: underline.left, width: underline.width, bottom: 0 }}
-      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-    />
   );
 }
