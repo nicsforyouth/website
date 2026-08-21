@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
   Check,
@@ -22,19 +22,11 @@ import {
 } from "lucide-react";
 import { config } from "@/lib/config";
 import Link from "next/link";
-// import NICSLogo from "./NICSLogo.tsx";
-
-interface JoinPageProps {
-  onBackToHome: () => void;
-}
 
 export default function JoinPage() {
   const { applicationForm } = config;
-  // Custom Google Form Link State
   const [showEmbed, setShowEmbed] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-
-  const [copiedPassText, setCopiedPassText] = useState(false);
 
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -64,14 +56,14 @@ export default function JoinPage() {
     },
     {
       q: "How will I know if my application was accepted?",
-      a: "Once you submit the Google Form, our team reviews applications within 48 hours and sends an official invitation email with direct access links to the NICS Discord/Slack community.",
+      a: "Once you submit the Google Form, our team reviews applications within 48 hours and sends an official invitation email with direct access links to the NICS Discord community.",
     },
   ];
 
   return (
     <div className="min-h-screen bg-bg-alt text-dark font-body relative overflow-hidden pt-24 pb-20">
       {/* Background glow effects */}
-      <div className="absolute right-0 top-10 w-150 h-[600px] rounded-full bg-primary-light/50 blur-[160px] pointer-events-none" />
+      <div className="absolute right-0 top-10 w-150 h-150 rounded-full bg-primary-light/50 blur-[160px] pointer-events-none" />
       <div className="absolute -left-25 bottom-20 w-125 h-125 rounded-full bg-primary-light/40 blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -91,32 +83,28 @@ export default function JoinPage() {
 
           {/* Active Intake Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary-light text-primary border border-primary/20 rounded-full text-xs font-semibold tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-primary" />
             <span>Memberships are Open!</span>
           </div>
         </div>
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-block px-3 py-1 bg-white border border-border text-dark text-xs font-semibold rounded-full uppercase tracking-widest shadow-xs">
-            Official Membership Registration
-          </div>
           <h1 className="font-display text-5xl md:text-6xl text-dark leading-tight tracking-tight">
             Step into Nepal's Next-Gen Computing Society.
           </h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed font-sans">
-            A high-energy, student-led collective building real software, neural
-            models, and secure systems across high schools in Nepal.
+            A student-led collective building real software, neural models, and
+            secure systems across high schools in Nepal.
           </p>
 
           {/* Stats strip */}
           <div className="pt-4 flex flex-wrap justify-center gap-6 text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5 font-medium">
-              <Users size={15} className="text-primary" /> 250+ Active High
+              <Users size={15} className="text-primary" /> 20+ Active High
               Schoolers
             </div>
             <div className="flex items-center gap-1.5 font-medium">
-              <Globe size={15} className="text-primary" /> 12+ Districts
-              Represented
+              <Globe size={15} className="text-primary" /> Non-profit initiative
             </div>
             <div className="flex items-center gap-1.5 font-medium">
               <Zap size={15} className="text-gold" /> 100% Free & Open Access
@@ -136,10 +124,6 @@ export default function JoinPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-light text-primary text-xs font-bold rounded-full uppercase tracking-wider">
-                  <FileText size={14} /> Direct Registration Link
-                </div>
-
                 <h2 className="text-3xl md:text-4xl font-bold text-dark font-sans tracking-tight">
                   Submit via Official Google Form
                 </h2>
@@ -147,7 +131,7 @@ export default function JoinPage() {
                 <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-sans">
                   We process all member applications through Google Forms to
                   ensure verified student data, instant confirmation receipts,
-                  and smooth onboarding into our Discord/Slack channels.
+                  and smooth onboarding into our Discord channels.
                 </p>
 
                 <div className="space-y-3 pt-2">
@@ -160,7 +144,7 @@ export default function JoinPage() {
                       rel="noopener noreferrer"
                       className="btn-text bg-primary hover:bg-primary/95 text-white px-7 py-3.5 rounded-xl transition-all shadow-md shadow-primary/20 hover:shadow-lg flex items-center gap-2 text-base font-semibold"
                     >
-                      Open Google Form <ExternalLink size={18} />
+                      Open Application Form <ExternalLink size={18} />
                     </a>
 
                     {/* Toggle Embed View */}
@@ -200,7 +184,7 @@ export default function JoinPage() {
               <div className="lg:col-span-5 bg-bg-alt border border-border p-6 rounded-2xl space-y-4">
                 <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-sans flex items-center justify-between">
                   <span>Application Checklist</span>
-                  <span className="text-primary">4 Steps</span>
+                  <span className="text-primary text-xs">4 Steps</span>
                 </div>
 
                 <ul className="space-y-3.5 text-xs text-dark/80 font-sans">
@@ -308,11 +292,11 @@ export default function JoinPage() {
                   title: "Mentorship Guilds",
                   desc: "Direct 1-on-1 guidance from senior computer science students and software engineers.",
                 },
-                {
-                  icon: <Terminal size={22} className="text-gold" />,
-                  title: "Cloud & Dev Credits",
-                  desc: "Free access to web hosting environments, API sandboxes, and hardware labs.",
-                },
+                // {
+                //   icon: <Terminal size={22} className="text-gold" />,
+                //   title: "Cloud & Dev Credits",
+                //   desc: "Free access to web hosting environments, API sandboxes, and hardware labs.",
+                // },
                 {
                   icon: <Award size={22} className="text-primary" />,
                   title: "Verified Credentials",
@@ -337,7 +321,7 @@ export default function JoinPage() {
             </div>
           </div>
         </motion.div>
-        ){/* FAQ Accordion Section */}
+        {/* FAQ Accordion Section */}
         <div className="mt-20 border-t border-border pt-16 max-w-3xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <h2 className="font-display text-4xl text-dark">
