@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
-export default function ArticlesLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

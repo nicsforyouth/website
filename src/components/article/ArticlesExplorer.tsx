@@ -2,24 +2,51 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { Article } from "@/types/article";
+import { Article, ARTICLE_CATEGORIES } from "@/types/article";
 
 import { ArticleCard } from "./ArticleCard";
-import { CategoryFilter } from "./CategoryFilter";
+import { CategoryFilter } from "../shared/CategoryFilter";
 import { SearchBar } from "../shared/SearchBar";
-import { SortDropdown, SortOption } from "./SortDropdown";
 import { BookOpen } from "lucide-react";
 import { useArticleFilters } from "@/hooks/useArticleFilters";
+import { SortDropdown, SortItem } from "../shared/SortDropdown";
+import { search } from "@/lib/search-helpers";
 
 type Props = {
   articles: Article[];
 };
 
-export function ArticlesExplorer({ articles }: Props) {
-  const { search, category, sort, setCategory, setSearch, setSort } =
-    useArticleFilters();
+const sortItems = [
+  { label: "Relevance", value: "relevance" },
+  {
+    label: "Newest",
+    value: "newest",
+  },
+  {
+    label: "Oldest",
+    value: "oldest",
+  },
+  {
+    label: "Title",
+    value: "title",
+  },
+  {
+    label: "Reading Time",
+    value: "reading",
+  },
+] as const satisfies SortItem[];
 
-  const [searchInput, setSearchInput] = useState(search);
+export function ArticlesExplorer({ articles }: Props) {
+  const {
+    search: searchStr,
+    category,
+    sort,
+    setCategory,
+    setSearch,
+    setSort,
+  } = useArticleFilters();
+
+  const [searchInput, setSearchInput] = useState(searchStr);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -36,19 +63,42 @@ export function ArticlesExplorer({ articles }: Props) {
       result = result.filter((article) => article.category === category);
     }
 
-    if (search.trim()) {
-      const query = search.toLowerCase();
-
-      result = result.filter((article) => {
-        return (
-          article.title.toLowerCase().includes(query) ||
-          article.description.toLowerCase().includes(query) ||
-          article.tags.some((tag) => tag.toLowerCase().includes(query))
-        );
-      });
+    if (searchStr.trim()) {
+      const searchResults = search(result, searchStr, [
+        {
+          getValue: (article) => article.title,
+          weight: 5,
+        },
+        {
+          getValue: (article) => article.tags,
+          weight: 4,
+        },
+        {
+          getValue: (article) => article.category,
+          weight: 4,
+        },
+        {
+          getValue: (article) => article.description,
+          weight: 3,
+        },
+        {
+          getValue: (article) => article.summary,
+          weight: 3,
+        },
+        {
+          getValue: (article) => article.author.name,
+          weight: 1,
+        },
+      ]);
+      result = searchResults.map((r) => r.item);
     }
 
     switch (sort) {
+      case "newest":
+        result.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
+        break;
       case "oldest":
         result.sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -66,14 +116,13 @@ export function ArticlesExplorer({ articles }: Props) {
         );
         break;
 
+      case "relevance":
       default:
-        result.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        );
+        break;
     }
 
     return result;
-  }, [articles, category, search, sort]);
+  }, [articles, category, searchStr, sort]);
 
   return (
     <section className="space-y-8">
@@ -87,12 +136,16 @@ export function ArticlesExplorer({ articles }: Props) {
             onChange={setSearchInput}
           />
 
-          <SortDropdown value={sort as SortOption} onChange={setSort} />
+          <SortDropdown items={sortItems} value={sort} onChange={setSort} />
         </div>
       </div>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"></div>
 
-      <CategoryFilter value={category} onChange={setCategory} />
+      <CategoryFilter
+        categories={ARTICLE_CATEGORIES}
+        value={category}
+        onChange={setCategory}
+      />
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"></div>
       {filtered.length > 0 ? (

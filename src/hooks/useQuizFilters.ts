@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export function useArticleFilters() {
+export function useQuizFilters() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -30,9 +30,11 @@ export function useArticleFilters() {
     search: params.get("q") ?? "",
     category: params.get("category") ?? "All",
     sort: params.get("sort") ?? "relevance",
+    difficulty: params.get("difficulty") ?? "All",
 
     setSearch: (value: string) => setParam("q", value),
     setCategory: (value: string) => setParam("category", value),
     setSort: (value: string) => setParam("sort", value),
+    setDifficulty: (value: string) => setParam("difficulty", value),
   };
 }
