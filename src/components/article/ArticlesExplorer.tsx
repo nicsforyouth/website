@@ -6,49 +6,20 @@ import { Article } from "@/types/article";
 
 import { ArticleCard } from "./ArticleCard";
 import { CategoryFilter } from "./CategoryFilter";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "../shared/SearchBar";
 import { SortDropdown, SortOption } from "./SortDropdown";
 import { BookOpen } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
 import { useArticleFilters } from "@/hooks/useArticleFilters";
 
 type Props = {
   articles: Article[];
-  // initialSearch: string;
-  // initialCategory: string;
-  // initialSort: string;
 };
 
-export function ArticlesExplorer({
-  articles,
-  // initialSearch,
-  // initialCategory,
-  // initialSort,
-}: Props) {
+export function ArticlesExplorer({ articles }: Props) {
   const { search, category, sort, setCategory, setSearch, setSort } =
     useArticleFilters();
 
-  // const router = useRouter();
-  // const pathname = usePathname();
-  //
-  // const [search, setSearch] = useState(initialSearch);
-  // const [category, setCategory] = useState(initialCategory);
-  // const [sort, setSort] = useState(initialSort);
-
   const [searchInput, setSearchInput] = useState(search);
-
-  // useEffect(() => {
-  //   const params = new URLSearchParams();
-  //
-  //   if (search) params.set("q", search);
-  //   if (category !== "All") params.set("category", category);
-  //   if (sort !== "newest") params.set("sort", sort);
-  //
-  //   const query = params.toString();
-  //
-  //   router.replace(query ? `${pathname}?${query}` : pathname, {});
-  // }, [search, category, sort, pathname, router]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -110,7 +81,11 @@ export function ArticlesExplorer({
       <div className="bg-white border border-border p-4 rounded-3xl gap-4 shadow-xs">
         {/* Search field */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between relative w-full">
-          <SearchBar value={searchInput} onChange={setSearchInput} />
+          <SearchBar
+            placeholder="Search titles, authors..."
+            value={searchInput}
+            onChange={setSearchInput}
+          />
 
           <SortDropdown value={sort as SortOption} onChange={setSort} />
         </div>

@@ -33,6 +33,13 @@ const NavItems: NavItem[] = [
   { type: "button", name: "Events", id: "events" },
   { type: "button", name: "Community", id: "community" },
   { type: "link", name: "Articles", id: "articles", href: "articles" },
+
+  {
+    name: "Quiz",
+    id: "quiz",
+    type: "link",
+    href: "/quiz",
+  },
 ];
 
 export default function HeroNavbar({
@@ -124,13 +131,12 @@ export default function HeroNavbar({
 
         {/* Desktop CTA */}
         <div id="desktop-cta" className="hidden md:flex items-center">
-          <button
-            id="navbar-cta-btn"
-            onClick={() => smoothScroll("community")}
+          <Link
+            href={"/join"}
             className="btn-text bg-primary text-white px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors cursor-pointer shadow-sm shadow-primary/10 hover:shadow-md hover:shadow-primary/20"
           >
             Join NICS
-          </button>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -186,13 +192,12 @@ export default function HeroNavbar({
                   </Link>
                 ),
               )}
-              <button
-                id="mobile-navbar-cta-btn"
-                onClick={() => smoothScroll("community")}
+              <Link
+                href={"/join"}
                 className="btn-text bg-primary text-white text-center py-3 rounded-full hover:bg-primary/90 transition-colors w-full cursor-pointer mt-2"
               >
                 Join NICS
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

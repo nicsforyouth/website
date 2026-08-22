@@ -35,6 +35,12 @@ export const navItems: NavLink[] = [
     type: "link",
     href: "/articles",
   },
+  {
+    name: "Quiz",
+    id: "quiz",
+    type: "link",
+    href: "/quiz",
+  },
 ] as const;
 
 export default function Navbar() {
