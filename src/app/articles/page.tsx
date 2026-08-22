@@ -26,10 +26,9 @@ function ExplorerSkeleton() {
   );
 }
 
-export default async function ArticlesPage({}: {}) {
+export default async function ArticlesPage() {
   const articles = await getAllArticles();
   const featured = articles.find((a) => a.isFeatured) ?? articles[0];
-  // const remaining = articles.filter((a) => a.slug !== featured.slug);
 
   return (
     <>

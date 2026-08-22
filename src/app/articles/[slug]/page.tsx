@@ -6,7 +6,7 @@ import { ArticleLayout } from "@/components/article/ArticleLayout";
 import { ReadingProgress } from "@/components/article/ReadingProgress";
 import { ArticleTOC } from "@/components/article/ArticleTOC";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export async function generateStaticParams() {
   return getAllSlugs();
