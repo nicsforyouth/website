@@ -16,6 +16,7 @@ export const auth = betterAuth({
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     },
   },
+  trustedOrigins: ["https://nicsforyouth.vercel.app"],
   databaseHooks: {
     user: {
       create: {
