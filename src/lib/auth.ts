@@ -6,6 +6,7 @@ import { and, eq } from "drizzle-orm";
 import * as schema from "@/lib/schema";
 
 export const auth = betterAuth({
+  baseURL: "https://nicsforyouth.vercel.app",
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
@@ -16,7 +17,10 @@ export const auth = betterAuth({
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     },
   },
-  trustedOrigins: ["https://nicsforyouth.vercel.app"],
+  trustedOrigins: [
+    "https://nicsforyouth.vercel.app",
+    "https://www.nicsforyouth.vercel.app",
+  ],
   databaseHooks: {
     user: {
       create: {
