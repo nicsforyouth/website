@@ -4,7 +4,7 @@ import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { mdxComponents } from "@/components/mdx";
-import { Heading, remarkHeadings } from "./remark-headings";
+import { Heading } from "./remark-headings";
 
 export async function parseMDX(source: string) {
   const headings: Heading[] = [];

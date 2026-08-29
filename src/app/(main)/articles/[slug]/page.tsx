@@ -7,6 +7,8 @@ import { ReadingProgress } from "@/components/article/ReadingProgress";
 import { ArticleTOC } from "@/components/article/ArticleTOC";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export async function generateStaticParams() {
   return getAllSlugs();
@@ -58,6 +60,27 @@ export default async function ArticlePage({
         </div>
       </ArticleLayout>
       <div className="border-t border-gray-200"></div>
+
+      {/* {article.workshop && ( */}
+      {/*   <div className="flex items-center justify-center my-12"> */}
+      {/*     <Link */}
+      {/*       prefetch */}
+      {/*       href={`/workshops/${article.workshop}`} */}
+      {/*       className={cn( */}
+      {/*         "inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors cursor-pointer group", */}
+      {/*         buttonVariants({ */}
+      {/*           variant: "default", */}
+      {/*         }), */}
+      {/*       )} */}
+      {/*     > */}
+      {/*       Continue to Workshop */}
+      {/*       <ArrowRight */}
+      {/*         size={16} */}
+      {/*         className="transition-transform group-hover:translate-x-1" */}
+      {/*       /> */}
+      {/*     </Link> */}
+      {/*   </div> */}
+      {/* )} */}
 
       <div className="flex items-center justify-center my-12">
         <Link

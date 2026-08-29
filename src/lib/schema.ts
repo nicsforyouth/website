@@ -8,6 +8,7 @@ import {
   uniqueIndex,
   serial,
   uuid,
+  integer,
 } from "drizzle-orm/pg-core";
 
 export const progress = pgTable(
@@ -136,3 +137,82 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }));
+
+export const workshops = pgTable("workshops", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description"),
+  activity: text("activity").notNull(), // "active", "passive", "expired"
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const modules = pgTable("modules", {
+  id: serial("id").primaryKey(),
+  workshopId: integer("workshop_id")
+    .notNull()
+    .references(() => workshops.id),
+  slug: text("slug").notNull(),
+  title: text("title").notNull(),
+  order: integer("order").notNull(),
+});
+
+export const steps = pgTable("steps", {
+  id: serial("id").primaryKey(),
+  moduleId: integer("module_id")
+    .notNull()
+    .references(() => modules.id),
+  order: integer("order").notNull(),
+  type: text("type").notNull(), // "article" | "video" | "quiz"
+  title: text("title").notNull(),
+  url: text("url"),
+  quizId: text("quiz_id"),
+  passingScore: integer("passing_score"),
+});
+
+export const enrollments = pgTable("enrollments", {
+  id: serial("id").primaryKey(),
+  memberId: uuid("member_id")
+    .notNull()
+    .references(() => members.id, { onDelete: "cascade" }),
+  workshopId: integer("workshop_id")
+    .notNull()
+    .references(() => workshops.id),
+  enrolledAt: timestamp("enrolled_at").notNull().defaultNow(),
+});
+
+export const stepProgress = pgTable("step_progress", {
+  id: serial("id").primaryKey(),
+  memberId: uuid("member_id")
+    .notNull()
+    .references(() => members.id, { onDelete: "cascade" }),
+  stepId: integer("step_id")
+    .notNull()
+    .references(() => steps.id),
+  completed: boolean("completed").notNull().default(false),
+  completedAt: timestamp("completed_at"),
+});
+
+export const finalProjects = pgTable("final_projects", {
+  id: serial("id").primaryKey(),
+  memberId: uuid("member_id")
+    .notNull()
+    .references(() => members.id, { onDelete: "cascade" }),
+  workshopId: integer("workshop_id")
+    .notNull()
+    .references(() => workshops.id),
+  submissionUrl: text("submission_url").notNull(),
+  submittedAt: timestamp("submitted_at").notNull().defaultNow(),
+});
+
+export const certificates = pgTable("certificates", {
+  id: serial("id").primaryKey(),
+  memberId: uuid("member_id")
+    .notNull()
+    .references(() => members.id, { onDelete: "cascade" }),
+  workshopId: integer("workshop_id")
+    .notNull()
+    .references(() => workshops.id),
+  certificateUrl: text("certificate_url"),
+  issuedAt: timestamp("issued_at").notNull().defaultNow(),
+});
