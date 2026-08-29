@@ -1,0 +1,120 @@
+---
+title: "Breaking Things"
+description: "Let's break down the string and let's build it back up into something useful!"
+date: 2026-08-29
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Algorithms
+  - Loops
+  - Sum
+category: Progamming
+featured: false
+published: true
+cover: https://imgur.com/9gokag4.jpg
+---
+
+## The Problem
+
+Let’s say I give you a string, `3 + 9`. Can you figure out how to break it into it’s individual characters, `3`, `+` and `9` ?
+
+<Callout type="tip" title="Hint">
+In javascript, you can use `<String>.split()` to break a string into smaller parts. For example, `'hello-world'.split('-')` would return an array, `['hello', 'world']` .
+</Callout>
+
+So after looking at the hint, can you figure out how can we solve the problem?
+
+## Let’s Try Something
+
+Hmm, so looking at the string `3 + 9` , and we want the individual `3` , `+` , and `9` s, the only thing separating them is a space (` `) character. Hmm... so let's just split the string for every space character we have! Run this little code snippet:
+
+### Splitting the string
+
+<JSRunner code="const splitted = '3 + 9'.split(' ')
+console.log(splitted)
+" />
+
+Yes! We got it :D 
+
+### Another issue, though
+
+Hmm, but there is a caveat. What if someone types `3 +9`. I mean, they just missed a space, and it's a valid expression. But it won't work for our parser, will it?
+
+
+<JSRunner code="const splitted = '3 +9'.split(' ')
+console.log(splitted)
+" />
+
+Yep, that breaks :( 
+
+But we did learn the process from our last algorithm. We just need to find what separates each character in the string. Previously, it was a space character. Here it's nothing. 
+
+Nothing? You know what, let's try nothing. Let's put the split-string as empty (`''`)
+
+<JSRunner code="const splitted = '3 +9'.split('')
+console.log(splitted)
+" />
+
+Oh. That works. Yep, this brings us to a cool javascript quirk, `.split('')` **separates each character into its own element.** Okay, but we still have a whitespace charcter, which we don't need. Let's get rid of it using `.filer()`
+
+<JSRunner code="const splitted = '3 +9'.split('')
+const filtered = splitted.filter(char => char != ' ')
+console.log(filtered)
+" />
+
+That works like magic! Butttttttttt..... what the heck is `.filter`? And what the heck is `!=`? What's that weird little `=>` syntax? 
+
+This is what brings me to the next part of our workshop: **Reading documentation.** As boring as it is, reading documentation is the one skill every programmer should have. So here's a link to the holy grail of Javascript documentation, the MDN docs. More specifically, MDN docs to `Array.filter()`: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">click here</a>
+
+If you want to, read it! And for the rest of you lazy people who don't want to read the docs, I will just summarize that everything is.
+
+### Array.filter()
+
+So `Array.filter()` is a "method" available on every array. What it does is, it goes through every value in the array, and checks if it satisfies a specific condition. If it doesn't, it removes the value from the array.
+
+And that specific condition? It's a function that returns either `true` or `false`. So in the above code, the condition is `char != ' '`, where `!=` is "not equal to". So we are basically saying, "return whether `char` is not equal to ' '". So if `char` IS equal to ' ', it would return `false`, the condition isn't satisfied, and the element is removed from the array. 
+
+Here, try is yourself:
+
+
+<JSRunner code="const char = '3'
+const condition = char != ' '
+console.log(condition)
+" />
+
+This returns `true`, since `char` is not equal to `' '`
+
+But this
+
+
+<JSRunner code="const char = ' '
+const condition = char != ' '
+console.log(condition)
+" />
+
+returns `false`. Hence, the `' '` character is filtered out
+
+And... that's it :D That's the solution.
+
+## Challenege
+
+Okay, here's the challenege. Can you write the code to split `3*(9 + 5) + 4` into its individual characters? Try it out, it's no test so don't worry if you didn't get it :)
+
+
+<JSRunner code="const string = '3*(9 + 5) + 45'
+/* Type below */
+" />
+
+If you couldn't do it, that's fine! Refer to our Discord Server and we'll help you out :)
+
+If you got `3,*,(,9,+,5),+,4,5`, youre *kinda* right, but let's think about it for a second. The `45` at the end is supposed to be a single character, isn't it? I mean, to a calculator, `4`,`5` is vastly different from `45`. So how do we deal with this? Hmm, this would be a nice segue to the next section, **where we'll learn how to deal with this exact problem!**
+
+Before that, though, let's test your knowledge. It's time for another Quiz >:) Okay I'll give you an option. You can either go to the quiz, or directly go to the next article. The choice is yours!
+
+<a href="/quiz/parse-it-02-breaking-things">Quiz</a>
+
+<br />
+
+<a href="/articles/parse-it-03-scanning">Next article: Scanning</a>

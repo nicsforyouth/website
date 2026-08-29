@@ -1,0 +1,133 @@
+{
+  "slug": "parse-it-03-scanning",
+  "title": "Tokenizing Pieces: The Loop Algorithm",
+  "category": "Coding",
+  "difficulty": "Advanced",
+  "timeMinutes": 15,
+  "description": "Very hard trace-through questions on the digit-grouping loop algorithm: how 'current' and 'pieces' behave step by step, edge cases at the start/end of a string, and the '0'-'9' Unicode comparison quirk.",
+  "tags": ["JavaScript", "Algorithms", "Loops", "Parsing", "Tokenization"],
+  "badge": "Piece Master",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Tracing the algorithm exactly as written, what is the final `pieces` array produced for the input string \"3*(9 + 5) + 45\" once spaces have been filtered out (splitted = ['3','*','(','9','+','5',')','+','4','5'])?",
+      "options": [
+        "['3','*','(','9','+','5)','+','45']",
+        "['3','*','(','95',')','+','45']",
+        "['3','*','(','9','+','5',')','+','45']",
+        "['3','*','(','9','+','5',')','+','4','5']"
+      ],
+      "correctIndex": 2,
+      "explanation": "Only the trailing '4','5' are adjacent digits with nothing separating them, so they merge into '45' via the leftover `current` push. '9' and '5' each sit next to non-digits ('+' and ')') so they stay as single-digit pieces, and ')' is never merged into a digit's piece.",
+      "topic": "Algorithm Trace"
+    },
+    {
+      "id": "q2",
+      "question": "Using the same algorithm, what would `pieces` be for the input \"12+345\"?",
+      "options": [
+        "['12','+','345']",
+        "['1','2','+','3','4','5']",
+        "['12','+','34','5']",
+        "['123','+','45']"
+      ],
+      "correctIndex": 0,
+      "explanation": "Consecutive digits before the '+' accumulate into '12', get flushed when '+' is hit, and the trailing digits '3','4','5' accumulate into '345', flushed by the final `if (current)` check after the loop ends.",
+      "topic": "Algorithm Trace"
+    },
+    {
+      "id": "q3",
+      "question": "In the string \"5+*3\", two non-digit characters ('+' and '*') sit back-to-back. What does the algorithm produce as the final `pieces` array?",
+      "options": [
+        "['5','+*','3']",
+        "['5+','*3']",
+        "['5','+','*3']",
+        "['5','+','*','3']"
+      ],
+      "correctIndex": 3,
+      "explanation": "Only digit characters ever accumulate inside `current`. Every non-digit character is pushed to `pieces` on its own the moment it's encountered, so '+' and '*' can never merge with each other even though they're adjacent.",
+      "topic": "Algorithm Trace"
+    },
+    {
+      "id": "q4",
+      "question": "For the input \"5+\" (a digit immediately followed by a non-digit, with nothing after it), what is the final `pieces` array once the loop AND the trailing `if (current)` check both finish running?",
+      "options": ["['5','+','']", "['5','+']", "['5+']", "['5','+','5']"],
+      "correctIndex": 1,
+      "explanation": "When '+' is reached, current ('5') is flushed into pieces and then '+' itself is pushed. current is now empty, so the trailing `if (current)` check after the loop has nothing left to add.",
+      "topic": "Algorithm Trace"
+    },
+    {
+      "id": "q5",
+      "question": "Why does the algorithm need the `if (current) { pieces.push(current) }` line placed after the for-loop finishes?",
+      "options": [
+        "To push any leftover run of digits still sitting in `current` that never got flushed inside the loop, which happens whenever the string ends on a digit",
+        "To make sure any leading whitespace at the start of the string gets removed before pieces are counted",
+        "To reverse the order of the `pieces` array so digits always come first",
+        "To immediately push every non-digit character that appears at the very end of the string"
+      ],
+      "correctIndex": 0,
+      "explanation": "Inside the loop, `current` is only flushed when a non-digit character is encountered. If the string ends while `current` still holds digits (no trailing non-digit to trigger the flush), that final check is the only thing that pushes it into `pieces`.",
+      "topic": "Algorithm Logic"
+    },
+    {
+      "id": "q6",
+      "question": "Per the callout, why does `splitted[i] >= '0' && splitted[i] <= '9'` correctly detect digit characters in JavaScript?",
+      "options": [
+        "Because JavaScript automatically parses any string that looks like a digit into an actual Number type before comparison",
+        "Because '0' and '9' are reserved keywords that only match numeric characters",
+        "Because during the >= and <= comparisons, JavaScript converts the string characters to their underlying Unicode number values, effectively checking whether the character falls within that numeric range",
+        "Because the >= and <= operators only work on arrays, not individual characters, forcing an implicit type conversion"
+      ],
+      "correctIndex": 2,
+      "explanation": "The callout explicitly states that during >= and <= comparisons, JavaScript converts the strings to their Unicode number equivalents, which is what makes the range check work.",
+      "topic": "Unicode Comparison Quirk"
+    },
+    {
+      "id": "q7",
+      "question": "According to the callout, why would the exact same `n >= '0' && n <= '9'` check fail to work as intended if translated directly into other programming languages?",
+      "options": [
+        "Because other languages don't allow the `&&` operator to be used with comparisons",
+        "Because most other languages don't support the greater-than-or-equal-to operator at all",
+        "Because '0' and '9' would be interpreted as separate arrays in most other languages",
+        "Because in those other languages, '0' and '9' remain plain strings rather than being converted to numbers during the comparison, so the range check wouldn't behave the same way"
+      ],
+      "correctIndex": 3,
+      "explanation": "The callout notes this specific comparison trick relies on JavaScript's behavior of treating '0' and '9' as numbers during the comparison — a conversion that doesn't happen the same way in other languages.",
+      "topic": "Unicode Comparison Quirk"
+    },
+    {
+      "id": "q8",
+      "question": "Before the algorithm ever begins looping through the characters, what do steps 1 and 2 say to set up first?",
+      "options": [
+        "Convert the entire input string to uppercase and remove all symbols",
+        "Create an empty list called pieces, and an empty string called current",
+        "Split the string into individual digits only, discarding every non-digit character",
+        "Create a counter variable starting at 1 and a boolean flag set to false"
+      ],
+      "correctIndex": 1,
+      "explanation": "Steps 1 and 2 of the algorithm are to create an empty `pieces` list and an empty `current` string, before any character is examined.",
+      "topic": "Algorithm Logic"
+    },
+    {
+      "id": "q9",
+      "question": "Based on the intuition section, which pair of adjacent characters would actually get merged into the same 'piece' by this algorithm?",
+      "options": [
+        "Two adjacent symbol characters, like '+' followed by '*'",
+        "A digit character immediately followed by a symbol character, like '9' followed by '+'",
+        "Two adjacent digit characters, like '4' followed by '5'",
+        "A symbol character immediately followed by a digit character, like '(' followed by '9'"
+      ],
+      "correctIndex": 2,
+      "explanation": "The core intuition is that a number followed by another number forms a single piece. Any pairing involving a symbol never merges, since symbols are always pushed as their own piece.",
+      "topic": "Algorithm Logic"
+    },
+    {
+      "id": "q10",
+      "question": "For the (space-filtered) input \"9(8\", what is the final `pieces` array the algorithm produces?",
+      "options": ["['9','(','8']", "['9(','8']", "['9','(8']", "['98','(']"],
+      "correctIndex": 0,
+      "explanation": "'9' is flushed and '(' is pushed the moment the non-digit is hit, then '8' accumulates in current and gets flushed by the trailing `if (current)` check. The symbol never merges with either digit.",
+      "topic": "Algorithm Trace"
+    }
+  ]
+}

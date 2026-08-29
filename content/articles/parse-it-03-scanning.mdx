@@ -1,0 +1,94 @@
+---
+title: "Scanning"
+description: "Continuation of the first acticle of this module :)"
+date: 2026-08-29
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Algorithms
+  - Loops
+  - Sum
+category: Progamming
+featured: false
+published: true
+cover: https://imgur.com/9gokag4.jpg
+---
+
+So... our previous problem, how do we know `45` is a single character but `4+5` is `4,+,5`? 
+
+## Intuition
+
+So intuitively, we know **if a number is followed by another number, it is a single character.** And by the way, let's stop calling it a character and instead let's call it a "piece". That makes more sense programmatically :D
+
+So, let's put into intuition in a step-by-step algorithm. Here's how we will detect the length of a piece
+
+1. Create an empty list called pieces.
+2. Create an empty string called current.
+3. Go through the characters one by one.
+4. If the character is a digit:
+- Add it to current.
+5. Otherwise:
+- If current isn't empty, add it to pieces.
+- Empty current.
+- Add the character to pieces.
+6. After going through all the characters, add current to pieces if it isn't empty.
+
+In this way, we can get all the useful characters as their individual pieces.
+
+## Let's Code It!
+
+We have an algorithm, so let's implement it. 
+
+### Loops
+
+But wait, I don't know if you noticed or not, but this algorithm requires **looping.** It is a simple programming concept taught in grade 10, but if you're unsure about it, watch this short video about it :D
+
+<YouTube id="wxds6MAtUQ0" />
+
+### Algorithm to Code
+
+So, implementing our above algorithm, it might look something like this:
+
+<JSRunner code="">
+
+```js
+const string = '3*(9 + 5) + 45'
+const splitted = string.split('').filter(c => c != ' ') // outputs: 3,*,(,9,+,5),+,4,5
+
+const pieces = []
+let current = ''
+
+for (let i = 0; i < splitted.length; i++) {
+if (splitted[i] >= '0' && splitted[i] <= '9') {
+      current = current + splitted[i]
+  } else {
+    if (current) {
+      pieces.push(current)
+      current = ''
+    }
+
+    pieces.push(splitted[i])
+  }
+}
+if (current) {
+  pieces.push(current)
+}
+
+console.log(pieces)
+```
+
+</JSRunner>
+
+### What's happening here?
+
+This is just the implementation of our above algorithm. We're creating a `pieces` array for the final output, and `current` as a temporary variable. Then, we are going over every character in the array, once at a time. If the character is a number, we *append* it to `current` and go to the next one. If the next character is also a number, we append it to `current` as well and this goes on until we come across a character that isn't a number (say, "+"). Then, we push `current` to `pieces` if it isn't empty, and then we push the "+" itself. Note that `current` is only cleared after we encounter a character that is not a number. So if there's something like "4,5", `current` would be `45`, but for "+,(" it would be empty. 
+
+<Callout type="note" title="What is `n > '0' && n < '9'` ?">
+In the code, you'll see `if (splitted[i] > '0' && splitted[i] < '9')` condition. For now, simply understand it's a check to see if a character is a number or not. It checks if the given character is between 0 or 9 (This won't work in other languages though, since '0' and '9' are strings, not numbers. In JavaScript, it works because during the > and < comparisions, JavaScript converts the string to their Unicode number.)
+</Callout>
+
+That's it! That's the whole algorithm! 
+
+I know it's a lot to take in, especially the above code, so I'll give you the courtesy of ending the article right here **without any quizzes!** (Although, for the ones feeling brave, you can go try-out a quiz right here: <a href="/quiz/parse-it-03-scanning">Link to quiz</a>. I promise it's not easy :wink:)

@@ -5,6 +5,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { mdxComponents } from "@/components/mdx";
 import { Heading } from "./remark-headings";
+import remarkJSRunner from "./remark-js-runner";
 
 export async function parseMDX(source: string) {
   const headings: Heading[] = [];
@@ -13,10 +14,11 @@ export async function parseMDX(source: string) {
     source,
     components: mdxComponents,
     options: {
-      parseFrontmatter: false,
+      parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [
           remarkGfm,
+          remarkJSRunner,
           // remarkHeadings(headings)
         ],
         rehypePlugins: [

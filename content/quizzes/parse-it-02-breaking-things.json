@@ -1,0 +1,143 @@
+{
+  "slug": "parse-it-02-breaking-things",
+  "title": "Splitting & Filtering Strings",
+  "category": "Coding",
+  "difficulty": "Intermediate",
+  "timeMinutes": 8,
+  "description": "Test your understanding of breaking strings apart with .split(), the .split('') quirk, and filtering unwanted characters out of an array with Array.filter().",
+  "tags": ["JavaScript", "Strings", "Arrays", "filter()", "split()"],
+  "badge": "Parser Apprentice",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does `'3 + 9'.split(' ')` do?",
+      "options": [
+        "It returns the exact same string unchanged",
+        "It breaks the string into an array of pieces wherever a space appears, giving ['3', '+', '9']",
+        "It deletes all spaces and joins the string back together",
+        "It converts the string into a single number"
+      ],
+      "correctIndex": 1,
+      "explanation": "`.split(' ')` breaks a string apart everywhere a space occurs, turning '3 + 9' into the array ['3', '+', '9'].",
+      "topic": "String.split()"
+    },
+    {
+      "id": "q2",
+      "question": "Why does `'3 +9'.split(' ')` fail to correctly parse the expression?",
+      "options": [
+        "Because .split() cannot be used on strings containing numbers",
+        "Because it throws a runtime error when a plus sign is present",
+        "Because with no space between '+' and '9', they aren't split apart, so one array element ends up as \"+9\" instead of separate \"+\" and \"9\"",
+        "Because .split(' ') only works on strings longer than five characters"
+      ],
+      "correctIndex": 2,
+      "explanation": "Since .split(' ') only breaks on spaces, a missing space means '+' and '9' stay glued together as one array element.",
+      "topic": "String.split()"
+    },
+    {
+      "id": "q3",
+      "question": "What does `.split('')` (an empty string argument) do to a string?",
+      "options": [
+        "It separates every single character into its own element in the resulting array",
+        "It splits the string only at whitespace characters",
+        "It returns the string unchanged, wrapped in an array",
+        "It removes all punctuation from the string"
+      ],
+      "correctIndex": 0,
+      "explanation": "Passing an empty string to .split() is the JavaScript quirk the article highlights: it separates every individual character into its own array element.",
+      "topic": "String.split() Quirk"
+    },
+    {
+      "id": "q4",
+      "question": "After running `'3 +9'.split('')`, what unwanted element ends up in the resulting array?",
+      "options": [
+        "The character '+'",
+        "The character '9'",
+        "An empty string ('')",
+        "A whitespace character (' ')"
+      ],
+      "correctIndex": 3,
+      "explanation": "Splitting on every character also captures the space itself as its own element, which then needs to be filtered out.",
+      "topic": "String.split() Quirk"
+    },
+    {
+      "id": "q5",
+      "question": "What is the general purpose of `Array.filter()`?",
+      "options": [
+        "It sorts every element in an array from smallest to largest",
+        "It goes through each element and keeps only the ones that satisfy a given condition, removing the rest",
+        "It permanently converts an array into a string",
+        "It adds new elements to the end of an array"
+      ],
+      "correctIndex": 1,
+      "explanation": "`Array.filter()` checks every element against a condition function and builds a new array containing only the elements that pass.",
+      "topic": "Array.filter()"
+    },
+    {
+      "id": "q6",
+      "question": "In the condition `char != ' '`, what does the `!=` operator mean?",
+      "options": [
+        "'is exactly equal to'",
+        "'is greater than'",
+        "'is not equal to'",
+        "'assigns a new value to'"
+      ],
+      "correctIndex": 2,
+      "explanation": "`!=` is the 'not equal to' operator, so `char != ' '` asks whether char is anything other than a space.",
+      "topic": "Comparison Operators"
+    },
+    {
+      "id": "q7",
+      "question": "What does `Array.filter()` do with an element when its condition function returns `false` for that element?",
+      "options": [
+        "It removes that element from the resulting array",
+        "It duplicates that element in the resulting array",
+        "It converts that element to `null` but keeps its position",
+        "It stops the filtering process entirely"
+      ],
+      "correctIndex": 0,
+      "explanation": "When the condition evaluates to false for a given element, .filter() excludes it from the array it returns.",
+      "topic": "Array.filter()"
+    },
+    {
+      "id": "q8",
+      "question": "In `splitted.filter(char => char != ' ')`, what does `char` represent as `.filter()` runs?",
+      "options": [
+        "The very first character of the original string only",
+        "The name of the array itself",
+        "A fixed value equal to a space",
+        "Each individual element of the array, one at a time, as filter checks it against the condition"
+      ],
+      "correctIndex": 3,
+      "explanation": "`char` is the parameter name for whichever array element .filter() is currently testing against the condition.",
+      "topic": "Array.filter()"
+    },
+    {
+      "id": "q9",
+      "question": "According to the article, why does the author encourage reading documentation like MDN, even while calling it 'boring'?",
+      "options": [
+        "Because documentation is required before any code will run",
+        "Because reading documentation is a core skill every programmer should build, even when it isn't exciting",
+        "Because MDN docs contain the only correct version of JavaScript",
+        "Because without it, .filter() and .split() won't function"
+      ],
+      "correctIndex": 1,
+      "explanation": "The article frames reading documentation as one of the essential skills every programmer should have, regardless of how tedious it feels.",
+      "topic": "Reading Documentation"
+    },
+    {
+      "id": "q10",
+      "question": "Given `const char = '3'; const condition = char != ' '`, what does `condition` evaluate to?",
+      "options": [
+        "false, since '3' is a whitespace character",
+        "undefined, since strings cannot be compared this way",
+        "true, since '3' is not equal to the space character",
+        "'3', since the comparison returns the value itself"
+      ],
+      "correctIndex": 2,
+      "explanation": "'3' is not the same as ' ', so the != comparison evaluates to true.",
+      "topic": "Comparison Operators"
+    }
+  ]
+}
