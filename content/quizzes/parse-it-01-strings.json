@@ -1,0 +1,158 @@
+{
+  "slug": "parse-it-01-strings",
+  "title": "Strings & Indexing Basics",
+  "category": "Coding",
+  "difficulty": "Beginner",
+  "timeMinutes": 10,
+  "description": "Test your understanding of what strings actually are, why quotation marks matter, string concatenation quirks, and zero-based string indexing.",
+  "tags": ["Strings", "JavaScript", "Fundamentals", "Indexing"],
+  "badge": "Index Master",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "According to the article, why is \"123\" classified as a string rather than a number?",
+      "options": [
+        "Because it contains only numeric characters",
+        "Because it is longer than one character",
+        "Because it is surrounded by quotation marks",
+        "Because JavaScript automatically converts short numbers to strings"
+      ],
+      "correctIndex": 2,
+      "explanation": "The article's core insight is that a string is always surrounded by quotations. To a computer, \"123\" wrapped in quotes is text, not the number 123.",
+      "topic": "What is a String"
+    },
+    {
+      "id": "q2",
+      "question": "Based on the article's setup, what does \"10\" + \"20\" actually output?",
+      "options": ["30", "\"1020\"", "NaN", "undefined"],
+      "correctIndex": 1,
+      "explanation": "Since both \"10\" and \"20\" are strings (quoted), the + operator concatenates them into \"1020\" instead of adding them as numbers.",
+      "topic": "String Concatenation"
+    },
+    {
+      "id": "q3",
+      "question": "How does the article describe what a string actually is, under the hood?",
+      "options": [
+        "An array of characters",
+        "A single indivisible value",
+        "A numeric sequence encoded only in binary",
+        "A type of function"
+      ],
+      "correctIndex": 0,
+      "explanation": "The article states that to a computer, a string is just an array of characters broken down one by one.",
+      "topic": "String Structure"
+    },
+    {
+      "id": "q4",
+      "question": "In the string \"Hello World\", what index does the first character, 'H', occupy?",
+      "options": ["1", "-1", "10", "0"],
+      "correctIndex": 3,
+      "explanation": "String indexing starts from 0, so the very first character always sits at index 0.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q5",
+      "question": "Counting from 0, what index does the space character occupy in \"Hello World\"?",
+      "codeSnippet": "H e l l o   W o r l d\n0 1 2 3 4 5 6 7 8 9 10",
+      "options": ["4", "5", "6", "7"],
+      "correctIndex": 1,
+      "explanation": "Counting H(0) e(1) l(2) l(3) o(4), the space that follows lands at index 5.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q6",
+      "question": "If the character at index 6 ('W') in \"Hello World\" were changed to lowercase 'w', what index would that 'w' occupy afterward?",
+      "options": [
+        "0, because the index resets after a change",
+        "7, because the index shifts forward by one",
+        "6, because the index stays the same regardless of the character change",
+        "It no longer has an index once changed"
+      ],
+      "correctIndex": 2,
+      "explanation": "The article explicitly notes that the index at any position stays the same even if the character at that position is changed.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q7",
+      "question": "Per the article's definition, what counts as a 'character'?",
+      "options": [
+        "A letter, symbol, number, or similar unit that occupies one byte",
+        "Any sequence of exactly two bytes",
+        "Only alphabetic letters (a-z, A-Z)",
+        "A complete word within a string"
+      ],
+      "correctIndex": 0,
+      "explanation": "The article defines a character loosely as a letter, symbol, number, or anything else that occupies one byte.",
+      "topic": "Characters"
+    },
+    {
+      "id": "q8",
+      "question": "Which statement best captures the relationship between 'array' and 'string' as the article frames it?",
+      "options": [
+        "An array is a type of string used for numeric data",
+        "Strings and arrays are unrelated data structures",
+        "An array can only contain strings, never characters",
+        "A string is essentially an array made up of individual characters"
+      ],
+      "correctIndex": 3,
+      "explanation": "The article's central framing is that a string, to a computer, is just an array of characters.",
+      "topic": "String Structure"
+    },
+    {
+      "id": "q9",
+      "question": "Why doesn't \"10\" + \"20\" equal the number 30, according to the article's reasoning?",
+      "options": [
+        "Because JavaScript rounds string values down before adding",
+        "Because the quotation marks make both values strings, and + concatenates strings instead of adding them numerically",
+        "Because \"10\" and \"20\" are treated as booleans",
+        "Because the + operator is undefined for values under 100"
+      ],
+      "correctIndex": 1,
+      "explanation": "Quotation marks turn 10 and 20 into text, so + joins them as characters rather than performing arithmetic.",
+      "topic": "String Concatenation"
+    },
+    {
+      "id": "q10",
+      "question": "What index does the final character, 'd', occupy in the string \"Hello World\"?",
+      "options": ["10", "11", "9", "0"],
+      "correctIndex": 0,
+      "explanation": "\"Hello World\" has 11 characters total, indexed 0 through 10, so the last character 'd' sits at index 10.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q11",
+      "question": "Since indexing starts at 0, how many total characters (including the space) make up \"Hello World\"?",
+      "options": ["10", "12", "11", "9"],
+      "correctIndex": 2,
+      "explanation": "The indices run from 0 to 10 inclusive, which is 11 total positions, matching 11 characters including the space.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q12",
+      "question": "Which of these statements about string indexing, as explained in the article, is TRUE?",
+      "options": [
+        "An index changes automatically whenever the character at that position is edited",
+        "A position's index stays fixed even if the character occupying it is replaced",
+        "Indexes are assigned randomly and can differ each time the string is read",
+        "Only vowels receive an index; consonants and spaces do not"
+      ],
+      "correctIndex": 1,
+      "explanation": "The article makes a point of showing that the index at a given position doesn't change even when the character there is swapped out.",
+      "topic": "String Indexing"
+    },
+    {
+      "id": "q13",
+      "question": "According to the article, what does 'string manipulation' generally mean?",
+      "options": [
+        "Deleting strings so they no longer exist in the program",
+        "Combining multiple programs into a single string variable",
+        "Converting a string into a number and back again",
+        "Transforming a string into some other form, such as changing its case or extracting part of it"
+      ],
+      "correctIndex": 3,
+      "explanation": "The article defines string manipulation as transforming a string into something else, giving examples like converting case or extracting parts of it.",
+      "topic": "String Manipulation"
+    }
+  ]
+}

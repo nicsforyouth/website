@@ -1,0 +1,61 @@
+---
+title: "Strings"
+description: "Finding the sum of a few numbers might seem really simple, but to a computer, you have to look around ways a bit more complex than the normal sum function. Let's discover it together!"
+date: 2026-08-22
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Algorithms
+  - Loops
+  - Sum
+category: Progamming
+featured: false
+published: true
+cover: https://imgur.com/CMosYR3.jpg
+---
+
+## Hmm so string… what the heck is it?
+
+Strings are basically just text. They can consist of any characters. For example, “nics”, “workshop day:- 1”, “123” are all strings!
+
+<Callout type="idea">Can you think of why “123” is classified as a string and not a number?</Callout>
+
+It's because it is surrounded by quotations (” ”). **This is where our first insight comes in**, a string is always surrounded by quotations. So to a computer, “10” isn't the number 10. That's why “10” + “20” would not output “30”. We will find out the actual output later in this article ;)
+
+If you knew this already, good job! And if you didn't thats even better, because I got to teach you :3
+
+So what is string manipulation? Well often times while writing algorithms and logics, you'd have the need to transform a string into something else. This could be something simple as converting “hello world” to “HELLO WORLD” or something rather complex like extracting 
+
+## So what exactly does “Hello World” mean?
+
+### String indexing
+
+To us it’s just text. But to a computer, it is broken down like this:
+
+```bash
+- H e l l o   W o r l d
+- 0 1 2 3 4 5 6 7 8 9 10
+```
+
+To a computer, **string is just an array of characters.** Those are some big words, “array”, “characters” whatever… We’ll get into those in a bit, but just know that
+
+- Array —> It’s basically a list of items
+- Characters —> It’s just a letter, or symbol, or number, or whatever else you can think of **that occupies one byte.**
+
+Here, have some fun with it :)
+
+<DraggableString value="Hello World" />
+
+See how:
+
+1. the index starts from `0`
+2. the index at any position stays the same even if the character is changed.
+
+This is how **string indexing** works!
+
+---
+Congratulations on making it this far! Here, test your knowledge via a quick quiz:
+
+<a href="/quiz/parse-it-01-strings">Go to quiz</a>
