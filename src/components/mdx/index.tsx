@@ -7,6 +7,7 @@ import { Quote } from "./Quote";
 import { DraggableString } from "./string-drag";
 import JSRunner from "./js-runner";
 import { YouTube } from "./youtube";
+import { BlurredReveal } from "./BlurredReveal";
 
 export const mdxComponents: MDXComponents = {
   Callout,
@@ -16,4 +17,5 @@ export const mdxComponents: MDXComponents = {
   DraggableString,
   JSRunner,
   YouTube,
+  BlurredReveal,
 };

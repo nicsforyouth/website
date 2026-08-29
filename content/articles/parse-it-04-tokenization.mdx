@@ -1,0 +1,290 @@
+---
+title: "Tokenization: Giving Meaning to Pieces"
+description: "Let's define what our pieces actually are. And let's do it programmatically."
+date: 2026-08-29
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - Algorithms
+  - Loops
+  - Sum
+category: Progamming
+featured: false
+published: true
+---
+
+## Continuation
+
+Till now, we have:
+
+```jsx
+['3', '*', '(', '9', '+', '5', ')', '+', '45']
+```
+
+But here’s something we know, yet the computer doesn’t: The Essence.
+
+We know that `3` is a number, `(` is a parenthesis and `+` is an operator. But the computer… it has no idea. So, let’s fix that!
+
+
+And that brings us to the topic, **tokenization.**
+
+## So what is tokenization?
+
+It is basically the process of assigning meaning to these pieces, essentially categorizing them. 
+
+> **A token is a piece of an expression together with information about what that piece means.**
+
+Let’s list out what type of tokens we would have. For our program, we’ll basically have these:
+
+- Numbers
+- Operators
+- Parenthesis, left & right
+
+That is basically it. For this project, we won’t dive into nested braces. 
+
+## Structuring
+
+Let’s define what a tokens should look like. As I mentioned, tokens are basically classifications of the pre-existing data. You must remember, **tokens do not lose data, they get more of it.** So, `45` is not just `NUMBER`, but it is `NUMBER, 45`. In this way, we can structure our tokens are pieces having two information: type and value. For that, let’s use **objects.**
+
+### Objects
+
+But, what are objects? **Objects are basically “key-value pairs”.** An example would be an object `student` as follows:
+
+```jsx
+const student = {
+	name: 'Neon',
+	class: 10,
+	isPassing: false
+}
+```
+
+Here, `student` is an object with 3 keys: `name`, `class`, and `isPassing`. Each key has a value, which could be of various types. Here, we see strings, numbers and even boolean (true/false). This is why they’re called “key-value pairs”. Note that an object must have unique keys. You cannot have two keys named `name` inside `student`. The syntax for accessing the key is `<Object>.<key>` . So to access `name`, we’d do `student.name`.
+
+That’s all you need to know about objects :D
+
+### The token object
+
+So using what we’ve learned, let’s design the object for the token. Since a token must have two things, type and value, let’s define them:
+
+```jsx
+const token = {
+	type: ...
+	value: ...
+```
+
+So an example token for `+` would be:
+
+```jsx
+{ type: 'operator', value: '+' }
+```
+
+And… that’s tokenization! if we repeat that for all the elements of our initial array, we’ll get something like this:
+
+```jsx
+[
+  { type: "number", value: "3" },
+  { type: "operator", value: "*" },
+  { type: "left-paren", value: "(" },
+  { type: "number", value: "9" },
+  { type: "operator", value: "+" },
+  { type: "number", value: "5" },
+  { type: "right-paren", value: ")" },
+  { type: "operator", value: "+" },
+  { type: "number", value: "45" }
+]
+```
+
+So this the exactly the point of this module. **To convert an array of pieces into a well-defined array of token.** 
+
+So let us implement that!
+
+Orrrrrrrrrrrr
+
+Let *you* implement that 👀
+
+Yep, you’re doing this on your own >:) becauseeeeeeeeee…….
+
+## It’s time for a CHALLENGEEEEEEE
+
+Since this is the last module of the day, **here’s a mini-challenge for ya!**
+
+- Given an array of pieces, tokenize them.
+    
+    
+
+```jsx
+/* Input */
+['3', '*', '(', '9', '+', '5', ')', '+', '45']
+
+/* Expected Output */
+[
+  { type: "number", value: "3" },
+  { type: "operator", value: "*" },
+  { type: "left-paren", value: "(" },
+  { type: "number", value: "9" },
+  { type: "operator", value: "+" },
+  { type: "number", value: "5" },
+  { type: "right-paren", value: ")" },
+  { type: "operator", value: "+" },
+  { type: "number", value: "45" }
+]
+```
+
+Now, you could just do `console.log('[{ type: "number", value: "3" }, ...` and call it a day, and if you feel like doing it, do it by all means 😁 But if you *do* wanna learn something from this workshop, try to come up with a solution of your own.
+
+Here’s your workbench:
+
+<JSRunner>
+
+```js
+const pieces = ['3', '*', '(', '9', '+', '5', ')', '+', '45']
+
+/* Type below */
+
+
+```
+</JSRunner>
+
+---
+
+
+<details style={{cursor: pointer}}>
+
+<summary>**If you're feeling lost, here are some hints:** (click to reveal)</summary>
+
+#### Hint 1
+
+<BlurredReveal>
+
+You already have the expression broken into individual pieces.
+
+Now, for **each piece**, ask yourself:
+
+> “What kind of thing is this?”
+
+For example, `"45"` is a number, while `"+"` is an operator.
+
+Your job is basically to figure out the **type** of every piece and put that information into an object.
+
+</BlurredReveal>
+---
+
+#### Hint 2
+
+<BlurredReveal>
+
+There are only a few types you need to worry about:
+
+* Numbers → `"number"`
+* `+`, `-`, `*`, `/` → `"operator"`
+* `(` → `"left-paren"`
+* `)` → `"right-paren"`
+
+So you can check a piece and decide which category it belongs to.
+
+</BlurredReveal>
+---
+
+#### Hint 3
+
+<BlurredReveal>
+You can use `if` statements:
+
+```js
+if (piece === "(") {
+  // it's a left parenthesis
+} else if (piece === ")") {
+  // it's a right parenthesis
+}
+```
+
+Then you can do the same for operators.
+
+But how can you tell if something like `"45"` is a number?
+
+</BlurredReveal>
+---
+
+#### Hint 4
+
+<BlurredReveal>
+JavaScript has `Number()` which can turn a string into a number.
+
+You can use it to check whether a piece represents a number:
+
+```js
+const number = Number(piece);
+
+if (!Number.isNaN(number)) {
+  // piece is a number
+}
+```
+
+Once you've figured out the type, create an object like:
+
+```js
+{
+  type: "number",
+  value: piece
+}
+```
+
+Remember: **keep `value` as the original string.**
+
+</BlurredReveal>
+---
+
+#### Hint 5
+
+<BlurredReveal>
+Loop through every piece and determine its type.
+
+A structure like this should get you started:
+
+```js
+function tokenize(pieces) {
+  const tokens = [];
+
+  for (const piece of pieces) {
+    let type;
+
+    // Figure out what type `piece` is...
+
+    tokens.push({
+      type,
+      value: piece
+    });
+  }
+
+  return tokens;
+}
+```
+
+Now fill in the part where you determine `type`.
+
+You can check for:
+
+```js
+"("
+")"
+"+"
+"-"
+"*"
+"/"
+```
+
+and finally, check whether the piece is a number.
+
+**Bonus:** Think about what should happen if the input contains something you don't recognize, like `"hello"`.
+
+</BlurredReveal>
+
+</details>
+
+---
+
+Once you've done that, let's see if you can combine it with the previous module which converted string to pieces. If you can do that, congratulations! you just built a tokenizer, all on your own!
+
+Do not forget to share your code and progress in our Discord Server :D That's it for today. I am very proud of you for making this far. See you tomorrow, when you make the final project :)
