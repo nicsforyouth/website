@@ -1,0 +1,224 @@
+---
+title: "Building the Parser"
+decription: "The final module. This is where we build our entire project."
+date: 2026-08-30
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - part of PARSE IT!
+  - strings
+  - parsing
+  - loops
+category: Workshop
+featured: false
+cover: https://imgur.com/kVXG7rw.jpg
+published: true
+---
+
+Okay. First of all, congratulations on making it to the final module. And get ready to build the parser!
+
+## Where we left off
+
+Last module, we worked on handling the multiplication. I hope you did the assignment from last module about combining multiplication and division. Let's work on addition and subtraction and finally complete our parser!
+
+## Continuing
+
+So from last module, you should have something like this:
+
+```js
+const tokens = [{ type: "number", value: "32" }, { type: "operator", value: "+" }, { type: "number", value: "4" }, { type: "operator", value: "*" }, { type: "number", value: "5" }]
+
+let new_tokens = []
+for(let i = 0; i < tokens.length; i++) {
+  if (tokens[i].value == '*') {
+    const result = tokens[i-1].value * tokens[i+1].value
+    const number_token = { type: "number", value: result }
+    new_tokens.pop()
+    new_tokens.push(number_token)
+    i++
+  } else if (tokens[i].value == '/') {
+    const result = tokens[i-1].value / tokens[i+1].value
+    const number_token = { type: "number", value: result }
+    new_tokens.pop()
+    new_tokens.push(number_token)
+    i++
+  } else {
+    new_tokens.push(tokens[i])
+  }
+}
+```
+
+Don't worry if your solution looks different than mine, if it works, it works!
+
+## Addition and Subtraction
+
+Let's see what we have till now:
+
+```js
+[
+  { type: 'number', value: '32' },
+  { type: 'operator', value: '+' },
+  { type: 'number', value: 20 }
+]
+```
+
+### String vs. Number
+
+Mini detail if you noticed, in the above tokens, the '32' is a string while 20 is a number, can you figure out why that is?
+
+It is because when we multiplied 5 and 4 to get 20 in the first algorithm, `5` and `4` were both strings. In standard practice you can't multiply strings and that, but JavaScript is smart enough to recognize that the string is in fact a number and it converts the datatype on it's own. This, however, will not work on addition as `'4' + '5'` would give you `'45'` instead of `9`.
+
+So it is a good idea to convert all values to numbers before processing them, even for the multiplications and divisions. There are a few ways to do that, but the simplest would be using the `Number()` constructor. So, `Number('45')` would give us `45`, and `Number('nics')` would give us `NaN` (Not a Number)
+
+### The algorithm
+
+With that out of the way, let's process the addition and subtraction. For this, we can use the same algorithm we used for multiplication. Let's see if you can figure it out on our own :D
+
+The stage is all yours :)
+
+<JSRunner>
+
+</JSRunner>
+
+### The solution
+
+Here's *my* solution. Yours doesn't have to be the same as this, it just needs to work.
+
+```js
+const new_tokens = [
+  { type: 'number', value: '32' },
+  { type: 'operator', value: '+' },
+  { type: 'number', value: 20 }
+]
+let result = Number(new_tokens[0].value)
+
+for let (i = 1; i < new_tokens.length; i+=2) {
+  const operator = tokens[i];
+  const number = Number(tokens[i + 1]);
+
+  if (operator === "+") {
+    result += number;
+  } else if (operator === "-") {
+    result -= number;
+  }
+}
+```
+
+Notice what's going on? We're initializing the loop from 1, and `i` is increasing by two. Why is that?
+
+So first, we know that the first token will always be a number. So we can just set that as the initial value and start the loop from the 2nd token. 
+
+We also know that after each number, there must be an operator, and after each operator there must be a number. Hence, number and operator occur alternatively. Therefore, we can loop by jumping one token to only loop over the numbers! This cuts our time taken in half!
+
+## YAYYYYYYY!!!!!!
+
+Well, there we go! Now let's put it all together and make a functional script, where the input is a mathematical expression (string) and the output would be its evaluation.
+
+<JSRunner>
+```
+function splitExpr(string) {
+  const splitted = string.split('').filter(c => c != ' ') // outputs: 3,*,(,9,+,5),+,4,5
+
+  const pieces = []
+  let current = ''
+
+  for (let i = 0; i < splitted.length; i++) {
+    if (splitted[i] >= '0' && splitted[i] <= '9') {
+      current = current + splitted[i]
+    } else {
+      if (current) {
+        pieces.push(current)
+        current = ''
+      }
+      pieces.push(splitted[i])
+    }
+  }
+  if (current) {
+    pieces.push(current)
+  }
+  return pieces;
+}
+
+function tokenize(pieces) {
+  const tokens = [];
+
+  for (const piece of pieces) {
+    let type;
+
+    if (piece >= "0" && piece <= "9") {
+      type = "number";
+    } else if (
+      piece === "+" ||
+      piece === "-" ||
+      piece === "*" ||
+      piece === "/"
+    ) {
+      type = "operator";
+    } else if (piece === "(") {
+      type = "left-paren";
+    } else if (piece === ")") {
+      type = "right-paren";
+    }
+    tokens.push({
+      type,
+      value: piece
+    });
+  }
+  return tokens;
+}
+
+function evaluate(tokens) {
+    
+  let new_tokens = []
+  for(let i = 0; i < tokens.length; i++) {
+    if (tokens[i].value == '*') {
+      const result = Number(new_tokens.pop().value) * Number(tokens[i+1].value)
+      const number_token = { type: "number", value: result }
+      new_tokens.push(number_token)
+      i++
+    } else if (tokens[i].value == '/') {
+      const result = Number(new_tokens.pop().value) / Number(tokens[i+1].value)
+      const number_token = { type: "number", value: result }
+      new_tokens.push(number_token)
+      i++
+    } else {
+      new_tokens.push(tokens[i])
+    }
+  }
+  
+  let result = Number(new_tokens[0].value)
+
+  for (let i = 1; i < new_tokens.length; i+=2) {
+    const operator = new_tokens[i].value;
+    const number = Number(new_tokens[i + 1].value);
+  
+    if (operator === "+") {
+      result += number;
+    } else if (operator === "-") {
+      result -= number;
+    }
+  }
+  return result
+}
+
+/* Finally, the parser! */
+function parse(expression) {
+  const pieces = splitExpr(expression)
+  const tokens = tokenize(pieces)
+  const result = evaluate(tokens)
+  return result
+} 
+
+const expr = '3 * 4 + 5 * 8 / 2'
+
+console.log(parse(expr))
+```
+</JSRunner>
+
+Go ahead! Try out different expressions in the `expr` variable! And more importantly, **try to find what doesn't work.** Try putting two numbers side by side, or two operators side by side. Try new lines, try decimals and try big numbers. See what breaks and see what errors you get. This is basically the heart of programming, **finding out bugs through testing.**
+
+And that my friend, is the end of the workshop. The above code, it was written by us, together. You can copy it, put it is a .js file, and put it out there as **your first JavaScript project!** 
+
+That's it from me. Keep learning, and keep building!
