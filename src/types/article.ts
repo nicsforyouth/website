@@ -6,6 +6,7 @@ export const ARTICLE_CATEGORIES = [
   "AI",
   "DevOps",
   "Programming",
+  "Workshop",
   "Web Development",
   "QoL",
   "Opinion",

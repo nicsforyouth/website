@@ -1,0 +1,117 @@
+---
+title: "BODMAS, Programmatically"
+description: "We all know it, but do we? Really? Can we implement it in a program?"
+date: 2026-08-30
+updated:
+author:
+  name: Sushant Ray
+  avatar: /images/team/sushant.jpg
+tags:
+  - part of PARSE IT!
+  - string search
+  - loops
+category: Workshop
+featured: false
+cover: https://imgur.com/CZ3efTc.jpg
+published: true
+---
+
+Okay BODMAS was easy, but how do we implement it in our program?
+
+## The Algorithm
+
+Well let’s start, as always, with an algorithm. Since we already know the BODMAS rule, here’s the rough picture:
+
+1. Find and evaluate division and multiplication operations left-to-right
+2. When we’re only left with addition and subtraction, calculate the result
+
+Sounds simple enough, but it’s not *rigorous enough* for a computer. How are we going to find division and multiplication operations? How do we do after evaluating them? 
+
+## Multiplication
+
+Okay let’s start simpler; let’s take only multiplication for now. Let’s look at `32 + 4 * 5`
+
+So! What we have is a tokenized expression, which would look something like:
+
+```js
+[
+	{ type: "number", value: "32" },
+	{ type: "operator", value: "+" },
+	{ type: "number", value: "4" },
+	{ type: "operator", value: "*" },
+	{ type: "number", value: "5" },
+]
+```
+
+Our job is find the `*` , and evaluate the **product of the tokens to the left and right of it,** which in this case, would be 4 and 5.
+
+Let’s use the scanning algorithm we used yesterday to break string into pieces, and then search for `*` operators. 
+
+<JSRunner>
+```js
+const tokens = [{ type: "number", value: "32" }, { type: "operator", value: "+" }, { type: "number", value: "4" }, { type: "operator", value: "*" }, { type: "number", value: "5" }]
+
+for(let i = 0; i < tokens.length; i++) {
+  if (tokens[i].value == '*') {
+    const result = tokens[i-1].value * tokens[i+1].value
+    console.log(result)
+  }
+}
+```
+</JSRunner>
+
+This gives us the result, but how do we replace the actual tokens with our result? 
+
+## Building it fully
+
+There actually isn't really a viable method to replace elements in arrays without cloning them. So let's create a new token array with the result. 
+
+<JSRunner>
+```js
+const tokens = [{ type: "number", value: "32" }, { type: "operator", value: "+" }, { type: "number", value: "4" }, { type: "operator", value: "*" }, { type: "number", value: "5" }]
+
+let new_tokens = []
+for(let i = 0; i < tokens.length; i++) {
+  if (tokens[i].value == '*') {
+    const result = tokens[i-1].value * tokens[i+1].value
+    const number_token = { type: "number", value: result }
+    new_tokens.pop()
+    new_tokens.push(number_token)
+    i++
+  } else {
+    new_tokens.push(tokens[i])
+  }
+}
+for (let i = 0; i<new_tokens.length;i++) {console.log(new_tokens[i].value)}
+
+```
+</JSRunner>
+
+So what are we doing here? Well besides creating a new array, we check for `*` operator. If we don't find it, we push everything to the new array. If we do find it, we compute the product and push that.
+
+But before pushing, we're doing `.pop()`, why? Well, let's look at a simplified version of our tokens:
+
+```js
+[ 32    +    4    *    5]
+//                ^
+//            We're here
+```
+
+the current `new_tokens` is
+```js
+[ 32    +    4 ]
+```
+and the new array is supposed to be
+
+```js
+[ 32    +    20 ]
+```
+Hence, we need to remove the `4` from `new_tokens` and add the result of `4 * 5`. The way we do that is `Array.pop()`. The `.pop()` function removes the last element from the array.
+
+But notice how we also shouldn't push the `5`? For that, we use `i++` after pushing, essentially skipping the next token altogether, which should always be the right-hand-side of the multiplication.
+
+Andddddd that's it! We can successfully compute multiplications now! 
+
+Okay, here's a challenge. See if you can change the above code **to also handle divisons.** Keep in mind that operations are always handled from left to right.
+
+Good luck, and see you in the next module, where we will FINISH THE PARSER YAYYYYY ;)
